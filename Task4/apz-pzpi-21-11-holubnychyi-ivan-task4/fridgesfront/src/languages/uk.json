@@ -1,0 +1,78 @@
+{
+    "settingsPage": {
+      "title": "Налаштування",
+      "languageLabel": "Мова:",
+      "english": "Англійська",
+      "ukrainian": "Українська",
+      "saveChanges": "Зберегти зміни",
+      "numberPhone": "Номер телефону",
+      "numberContract": "Номер контракту",
+      "password": "Пароль",
+      "passwordAgain": "Ще раз пароль",
+      "email": "Ел. пошта",
+      "fatherName": "По-батькові",
+      "surname": "Прізвище",
+      "name": "Ім'я"
+    },
+
+    "footerUser": {
+        "fridge": "Холодильники",
+        "food": "Власна їжа",
+        "justFood": "Їжа",
+        "history": "Відвідування",
+        "justHistory": "Історія використання",
+        "autoOrder": "Автозамовлення",
+        "subscription": "Підписки",
+        "settings": "Налаштування",
+        "exist": "Вийти",
+        "sign": "Увійти",
+        "welcome": "Ласкаво просимо до системи контролю за холодильниками"
+    },
+
+    "signIn": {
+        "form-title": "Вхід в особистий кабінет",
+        "login-button": "Зареєструватися"
+    },
+
+    "bar": {
+        "project": "Навчальний проект",
+        "contacts": "Контакти:"
+    },
+
+    "register": {
+        "label": "Реєстрація",
+        "photo": "Виберіть фото (лише одне):",
+        "buttonSend": "Відправити"
+    },
+
+    "subscription": {
+        "buy": "Купити",
+        "standart": "Стандарт",
+        "text_info": "Можливість користуватися автозамовленням",
+        "text_date": "Термін 6 місяців"
+    },
+
+    "checkout": {
+        "content": "Підтримується JavaWhizz",
+        "made": "Зробити платіж:",
+        "button": "Заплатити"
+    },
+
+    "mainFridge": {
+        "autoOrder": "Автозамовлення для холодильника",
+        "history": "Історія користування",
+        "title": "Їжа в холодильнику"
+    },
+
+    "autoOrderFridge": {
+        "order": "Замовити",
+        "add": "Додати",
+        "title": "Зробити автозамовлення",
+        "productName": "Ім'я продукта",
+        "productWeight": "Вага",
+        "productCount": "Кількість",
+        "productList": "Список продуктів",
+        "deliveryDate": "Дата замовлення",
+        "title_user": "Автозамовлення користувача"
+    }
+}

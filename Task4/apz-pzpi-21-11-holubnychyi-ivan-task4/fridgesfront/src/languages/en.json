@@ -1,0 +1,78 @@
+{
+    "settingsPage": {
+      "title": "Settings",
+      "languageLabel": "Language:",
+      "english": "English",
+      "ukrainian": "Ukrainian",
+      "saveChanges": "Save changes",
+      "numberPhone": "Number phone",
+      "numberContract": "Number contract",
+      "password": "Password",
+      "passwordAgain": "Password again",
+      "email": "Email",
+      "fatherName": "Patronymic",
+      "surname": "Surname",
+      "name": "Name"
+    },
+
+    "footerUser": {
+        "fridge": "Fridges",
+        "food": "Food",
+        "justFood": "Food",
+        "history": "History",
+        "justHistory": "History of using",
+        "autoOrder": "Auto order",
+        "subscription": "Subscriptions",
+        "settings": "Settings",
+        "exist": "Exist",
+        "sign": "Sign of",
+        "welcome": "Welcome to fridge system"
+    },
+
+    "signIn": {
+        "form-title": "Sign in personal account",
+        "login-button": "Register"
+    },
+
+    "bar": {
+        "project": "Education project",
+        "contacts": "Contacts:"
+    },
+
+    "register": {
+        "label": "Registration",
+        "photo": "Choose photo (only one):",
+        "buttonSend": "Send"
+    },
+
+    "subscription": {
+        "buy": "Buy",
+        "standart": "Standart",
+        "text_info": "Ability to use auto-order",
+        "text_date": "The term is 6 months"
+    },
+
+    "checkout": {
+        "content": "Support by JavaWhizz",
+        "made": "Do payment:",
+        "button": "Pay now"
+    },
+
+    "mainFridge": {
+        "autoOrder": "Automatic order",
+        "history": "History of using",
+        "title": "Food in fridge"
+    },
+
+    "autoOrderFridge": {
+        "order": "Order",
+        "add": "Add",
+        "title": "Do auto order",
+        "productName": "Name product",
+        "productWeight": "Weight",
+        "productCount": "Amount",
+        "productList": "Product list",
+        "deliveryDate": "Date delivery",
+        "title_user": "Auto orders for user"
+    }
+}

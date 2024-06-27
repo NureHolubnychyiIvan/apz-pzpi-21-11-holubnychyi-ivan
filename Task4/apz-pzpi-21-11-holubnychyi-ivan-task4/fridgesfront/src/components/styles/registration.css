@@ -1,0 +1,353 @@
+body {
+	width: 100%;
+	margin: 0 auto;		
+}
+
+.form p {
+    font-size: 16pt;
+}
+
+#typeUser_r {
+    width: 200px;
+    height: 40px;
+}
+
+#cardDate_r{
+    display: block;
+    margin-left: 33.3%;
+}
+
+#sex_r {
+    width: 100px;
+    height: 40px;
+}
+ 
+.labelType_r {
+    margin-right: 170px;
+}
+
+.time_r {
+    margin-right: 230px;
+}
+
+.labelSex_r {
+    margin-right: 260px;
+}
+
+.birthYear_r {
+    margin-right: 150px;
+}
+
+ textarea:focus {
+  box-shadow: 0 0 20px;
+  transition: 0.5s;
+}
+
+input:focus {
+   box-shadow: 0 0 20px;
+   transition: 0.5s;
+}
+
+.codeLabel_r {
+    font-size: 18pt;
+    margin-top: 50px;
+}
+
+.header_r {
+    background-color: #EF8134;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2% 7%;
+    height: 100px;
+}
+
+.logo_r {
+    width: 18%; 
+    height: 100px;
+}
+
+.conteiner_r img {
+    height: 100px;
+}
+
+.login-button_r {
+    background-color: orange;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: flex;
+    height: 40px;
+    font-size: 16pt;
+    justify-content: center;
+    margin-top: 135px;
+    font-family: "Arial Black", Arial, sans-serif;
+}
+
+.nav_r {
+    background-color: #EF8134;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: flex;
+    height: 50px;
+    font-size: 18pt;
+    margin-top: 20px;
+    justify-content: center;
+    font-family: "Arial Black", Arial, sans-serif;
+}
+
+.nav_r:hover {
+    background-color: rgb(236, 224, 224);
+    color: #EF8134;
+}
+
+
+.login-button_r:hover {
+    background-color: rgb(236, 224, 224);
+    color: orange;
+}
+
+.main-content_r {
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    text-align: center;
+    
+}
+
+.form-title_r {
+    color: rgb(255, 255, 255);
+    background-color: orange;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-family: "Arial Black", Arial, sans-serif;
+}
+
+.form_r input[type="number"] {
+    margin-top: 40px;
+    width: 300px;
+    height: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+
+.formBlock_r input[type="button"],
+input[type="submit"] {
+    background-color: orange;
+    color: white;
+    border: 0ch;
+    width: 300px;
+    height: 50px;
+    font-size: 18pt;
+    margin-top: 30px;
+    font-family: "Arial Black", Arial, sans-serif;
+}
+
+.formBlock_r input[type="button"],
+input[type="submit"]:hover {
+    background-color: rgb(236, 224, 224);
+    color: orange;
+}
+
+.formBlock_r label {
+    font-size: 12pt;
+}
+
+.form_r button {
+    background-color: orange;
+    color: rgb(213, 210, 210);
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.form_r button:hover {
+    background-color: white;
+    color: orange;
+}
+
+.form_r input[type="text"],
+.form_r input[type="email"],
+.form_r input[type="date"],
+.form_r input[type="password"] {
+    width: 300px;
+    height: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.form_r input[type="file"] {
+    width: 300px;
+    height: 20px;
+    /* padding: 10px; */
+    margin-bottom: 10px;
+}
+
+
+.form_r {
+    margin-bottom: 50px;
+}
+
+.footer_r {
+    background-color: #EF8134;
+    display: flex;
+    color: white;
+    padding: 2% 7%;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 300px;
+ 	justify-content: space-between;
+    font-size: 16pt;
+}
+
+.conteiner_r {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+.formBlock_r {
+	display: block;
+	background: #cac8c8;
+	width: 50%;
+	height: 60%;
+	margin-top: 100px;
+	margin-left: 25%;
+	margin-right: 20%;
+    margin-bottom: 0px;    
+  }
+
+  .contact-info_r {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.form_order label {
+    font-size: 18pt;
+}
+
+.form_order input {
+    font-size: 11pt;
+   margin-left: 20px;
+   margin-right: 10px;
+   margin-bottom: 20px;
+   height: 30px;
+}
+
+.h2_p {
+    color: black;
+}
+
+.span_p {
+    font-size: 16pt;
+}
+
+.button_p {
+    margin-left: 45px;
+    height: 30px;
+    width: 200px;
+    font-size: 14pt;
+}
+
+
+
+
+
+
+.main-content_s {
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    text-align: center;
+    
+}
+
+.form-title_s {
+    color: rgb(255, 255, 255);
+    background-color: orange;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-family: "Arial Black", Arial, sans-serif;
+}
+
+.form_s input[type="number"] {
+    margin-top: 40px;
+    width: 300px;
+    height: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+
+.formBlock_s input[type="button"],
+input[type="submit"] {
+    background-color: orange;
+    color: white;
+    border: 0ch;
+    width: 300px;
+    height: 50px;
+    font-size: 18pt;
+    margin-top: 30px;
+    font-family: "Arial Black", Arial, sans-serif;
+}
+
+.formBlock_s input[type="button"],
+input[type="submit"]:hover {
+    background-color: rgb(236, 224, 224);
+    color: orange;
+}
+
+.formBlock_s label {
+    font-size: 12pt;
+}
+
+.form_s button {
+    background-color: orange;
+    color: rgb(213, 210, 210);
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.form_s button:hover {
+    background-color: white;
+    color: orange;
+}
+
+.form_s input[type="text"],
+.form_s input[type="email"],
+.form_s input[type="date"],
+.form_s input[type="password"] {
+    width: 300px;
+    height: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.form_s input[type="file"] {
+    width: 300px;
+    height: 20px;
+    /* padding: 10px; */
+    margin-bottom: 10px;
+}
+
+
+.form_s {
+    margin-bottom: 50px;
+}
+
+
+.button_s {
+    margin-bottom: 10px;
+}
+
+.labelSet {
+    font-size: 25px;
+}
+
+
+
+  
+  
+
+
