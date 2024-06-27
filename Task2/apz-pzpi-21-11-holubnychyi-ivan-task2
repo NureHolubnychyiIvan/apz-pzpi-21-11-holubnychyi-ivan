@@ -1,0 +1,518 @@
+﻿1 ОПИС АРХІТЕКТУРИ СИСТЕМИ
+
+Програмна система призначена для моніторингу та керування корпоративними холодильниками. 
+Вона базується на архітектурі, яка використовує Spring Boot як бекенд фреймворк та REST API для комунікації між компонентами. 
+Взаємодія з ресурсами здійснюється за допомогою стандартних HTTP-методів, а дані передаються у форматі JSON. 
+Використання REST API забезпечує простоту, легкість розуміння та масштабованість системи.
+Серверна частина реалізована на Spring Boot і складається з декількох компонентів:
+Контролери: Обробляють HTTP-запити від клієнтів, визначаючи маршрути та викликаючи відповідні сервіси для обробки запитів. 
+Вони забезпечують доступ до основної функціональності системи.
+Сервіси: Вміщують бізнес-логіку системи, виконують обчислення, валідацію даних та взаємодіють з базою даних через репозиторії. 
+Сервіси також відповідають за інтеграцію з зовнішніми API, такими як Stripe API для управління платежами та Delivery API для обробки замовлень.
+
+2 ПОБУДОВА ДІАГРАМИ РОЗГОРТАННЯ
+
+Діаграма розгортання описує структуру та взаємозв'язки компонентів програмної системи для організації роботи корпоративних холодильників. 
+Вона відображає фізичну архітектуру системи, включаючи розташування апаратних та програмних ресурсів.
+Основним фізичним компонентом системи є сервер, на якому відбувається бізнес-логіка та виконуються складні обчислення. 
+Сервер виконує функції зберігання, обробки та управління даними, обчислення графіків використання холодильників, перевірку даних про користувачів та холодильники. 
+Сервер працює на фреймворку Spring Boot, підтримуючи функціональність програми.
+Сервер взаємодіє з базою даних, яка знаходиться на незалежному фізичному пристрої з системою управління базами даних MySQL. 
+База даних використовується для зберігання інформації про користувачів, холодильники, їжу та транзакції. 
+Архітектурно сервер складається із шарів представлення, бізнес-логіки та доступу до бази даних. 
+Сервер додатків надає API за специфікацією REST для забезпечення взаємодії з мобільним додатком, фронтендом та IoT пристроями. 
+Дані проходять через сервіси, які їх обробляють, та репозиторії, які зберігають всю інформацію у базі даних. 
+Сервер також обробляє запити від клієнтських додатків та забезпечує безпеку даних.
+Фронтенд є важливою частиною програмної системи, що забезпечує інтерфейс для взаємодії із системою для адміністраторів холодильників.
+Фронтенд розгортається на веб-сервері та доступний через веб-браузер. 
+Він використовує фреймворк React, що дозволяє реалізувати графічні елементи для користувача та зв’язок із сервером. 
+Шар інтерфейсу відповідає за відображення інтерфейсу користувача, включаючи всі візуальні елементи, такі як кнопки, форми, таблиці та графіки.
+Взаємодія між клієнтськими частинами системи та сервером проводиться за допомогою файлів у форматі JSON та протоколу передачі даних HTTP. 
+Сервер містить контролери, які приймають всі запити від інших компонентів системи.
+
+3 ОПИС АРХІТЕКТУРИ СЕРВЕРНОЇ ЧАСТИНИ
+
+Серверна частина програмної системи організації роботи корпоративних холодильників побудована згідно монолітної архітектури.
+Весь додаток побудований як єдиний блок, де всі компоненти, такі як інтерфейс користувача, бізнес-логіка та доступ до даних, розгортаються як один цілісний модуль.
+Вибір монолітної архітектури дозволяє швидше розробляти та налаштовувати програму без необхідності керувати різними сервісами.
+Серверна частина складається з кількох шарів: представлення, бізнес-логіка, шар доступу до даних та безпека.
+Шар представлення містить контролери.
+Контролери обробляють HTTP-запити від клієнтських частин, визначаючи шляхи та викликають відповідні сервіси для обробки запитів.
+Вони забезпечують точку доступу для взаємодії із системою та містять основну функціональність.
+Для кожного типу користувачів передбачений власний контролер, такі як AuthenticationController, BusinessAdminController, DatabaseAdminController, UserController, DeviceController, PaymentController.
+Сервіси містять бізнес-логіку системи.
+Вони виконують обчислення, валідацію даних та реалізацію об’єктів для комунікації між сервером, обробляючи запити від контролерів.
+На цьому рівні відбувається зв’язок із зовнішніми API, такими як Stripe API для управління платежами та Dropbox API для зберігання фотографій користувачів.
+Логіка створення резервних копій для бази даних також знаходиться в шарі бізнес-логіки.
+Інтерфейси сервісів та об’єкти для транспортування розташовані в шарі "Domain".
+Контролери працюють, використовуючи інжекцію залежностей, що дозволяє легко розширювати реалізації та змінювати зовнішні API.
+Механізм "Mapper" перетворює сутності до об’єктів передачі даних і навпаки.
+Шар доступу до бази даних містить репозиторії та моделі.
+Репозиторії взаємодіють з базою даних та моделями, забезпечуючи доступ до даних і виконуючи операції з видалення, редагування, додавання та зберігання даних.
+Використовуються Java Persistence API (JPA) та Hibernate для роботи з реляційними базами даних в Java-додатках.
+JPA надає стандартний спосіб мапити Java-об'єкти на таблиці бази даних, а Hibernate є потужним фреймворком Object-Relational Mapping (ORM), який надає додаткові можливості.
+Шар безпеки містить налаштування для фільтрації користувачів за допомогою Spring Security.
+Ця частина також містить файли конфігурації для налаштування роботи та переліку фільтрів, що забезпечують доступ для користувачів лише до певних контролерів.
+Реалізований перехоплювач помилок.
+Файли фільтрів мають логіку надання дозволу для запиту залежно від його адреси, а також визначають послідовність перевірок для кожного запиту.
+Автентифікація відбувається за допомогою токенів JWT, які формує сервер після авторизації в системі.
+Авторизація пристрою відбувається за допомогою API ключа, який повинен міститися в запиті.
+
+4 ПОБУДОВА ДІАГРАМИ ПРЕЦЕДЕНТІВ
+
+Предметна область включає три типи користувачів: клієнт або співробітник підприємства, адміністратор бази даних, та адміністратор бізнес-логіки системи. Кожен тип користувача має свої функціональні потреби та взаємодіє з системою відповідно до своєї ролі.
+Клієнт або співробітник підприємства є основним типом користувача для цієї системи. Він повинен мати доступ до холодильників та можливість зберігати і використовувати їжу для власних потреб. Система повинна надавати функціональність для обмеження доступу клієнтів до холодильників та можливість використовувати лише певний набір даних пристроїв. Клієнт має доступ до перегляду списку доступних холодильників, вмісту кожного холодильника, переліку власної їжі, історії користувань та списку автозамовлень. Для можливості автозамовлення клієнт може оформити підписку.
+Діаграма прецедентів для клієнтів (рис. 1) ілюструє ці функціональні потреби.
+Адміністратор бази даних має функціональні потреби, пов'язані з роботою бази даних та забезпеченням цілісності даних. Адміністратор має переглядати всю інформацію, яка зберігається в системі: про холодильники, користувачів, наявні доступи до холодильників, перелік їжі та автозамовлень. Адміністратор може редагувати, видаляти, додавати різні види інформації. Система повинна підтримувати функції резервного копіювання та відновлення даних.
+Діаграма прецедентів для адміністратора бази даних (рис. 2) ілюструє ці функціональні потреби.
+Адміністратор бізнес-логіки відповідає за контроль різних видів інформації та формування статистик щодо роботи системи. Адміністратор має потребу у формуванні статистик витрат електроенергії кожного холодильника та загальної суми витрат, спираючись на ціну електроенергії.
+Діаграма прецедентів для адміністратора бізнес-логіки (рис. 3) ілюструє ці функціональні потреби.
+Система повинна також надавати функціональність реєстрації та автентифікації для всіх видів користувачів. Цей функціонал виділений на окремій діаграмі прецедентів (рис. 4).
+
+5 ПОБУДОВА ER-ДІАГРАМИ
+
+Було виділено основні сутності, які відповідають за різні аспекти функціонування системи. Це дозволяє ефективно організувати зберігання та обробку даних, що забезпечує необхідну функціональність.
+Основні сутності та їх атрибути:
+Користувач: користувач_id, ім’я, прізвище, по-батькові, пароль, електронна пошта, номер телефону, фото, номер трудового договору, тип. Первинний ключ: користувач_id.
+Холодильник: холодильник_id, температура, вологість. Первинний ключ: холодильник_id.
+Модель: модель_id, назва моделі, бренд, кількість відділень, споживання електроенергії за рік. Первинний ключ: модель_id.
+Офіс: офіс_id, країна, місто, район, вулиця, номер будинку, назва компанії. Первинний ключ: офіс_id.
+Доступ: доступ_id. Первинний ключ: доступ_id.
+Підписка: підписка_id, дата початку, дата кінця, ціна. Первинний ключ: підписка_id.
+Їжа: їжа_id, дата придатності, кількість зайнятих відділень, назва. Первинний ключ: їжа_id.
+Транзакція: транзакція_id, дата початку, дата кінця. Первинний ключ: транзакція_id.
+Продукт: продукт_id, назва, вага. Первинний ключ: продукт_id.
+Замовлення: замовлення_id, дата замовлення, кількість. Первинний ключ: замовлення_id.
+Зв’язки між сутностями:
+"Користувач - Підписка" – тип зв’язку "один до багатьох", оскільки користувач повинен придбати нову підписку після закінчення терміну старої.
+"Користувач - Доступ" – тип зв’язку "один до багатьох", оскільки користувач може мати доступ до кількох холодильників.
+"Офіс - Холодильник" – тип зв’язку "один до багатьох", оскільки офіс може мати декілька холодильників.
+"Модель - Холодильник" – тип зв’язку "один до багатьох", оскільки підприємство може мати багато холодильників однієї моделі.
+"Холодильник - Доступ" – тип зв’язку "один до багатьох", оскільки до холодильника можуть мати доступ багато користувачів.
+"Доступ - Транзакція" – тип зв’язку "один до багатьох", оскільки без доступу користувач не здійснить транзакцію, і по одному доступу можуть проводитися декілька транзакцій.
+"Транзакція - Їжа" – тип зв’язку "один до багатьох", оскільки за одну транзакцію можуть покласти чи забрати багато їжі.
+"Доступ - Замовлення" – тип зв’язку "один до багатьох", оскільки одним доступом може бути створено багато замовлень. Замовлення має мати доступ, оскільки там міститься інформація про користувача та холодильник.
+"Продукт - Замовлення" – тип зв’язку "один до багатьох", оскільки замовлення може складатися з декількох продуктів.
+Дані компоненти дозволяють адміністраторам ефективно взаємодіяти з програмною системою, надаючи їм засоби для моніторингу, аналізу та управління всіма аспектами роботи системи контролю за корпоративними холодильниками.
+Спираючись на моделювання предметної області, була побудована ER-діаграма бази даних, яка враховує зберігання інформації для всієї представленої функціональності.
+
+6 СПЕЦИФІКАЦІЯ REST
+
+REST (Representational State Transfer) - архітектурний стиль для розробки сучасних веб-додатків, який базується на стандартах протоколів HTTP. REST підтримує обмін даними між клієнтом і сервером шляхом використання ресурсів, ідентифікованих унікальними URL.
+Серверна частина підтримує ресурси доступу до контролера авторизації, користувача, адміністраторів, пристроїв, оплати.
+Метод "Увійти в систему" (signIn), доступний по адресі “/authentication/signIn”, приймає дані користувача та відповідає на них JWT-токенами для доступу та оновлення.
+Метод "Оновити токен" (refresh), доступний по адресі “/authentication/refresh”, дозволяє оновити токен доступу за допомогою токену оновлення. Це корисно для продовження строку дії токенів без необхідності повторного входу в систему.
+Метод "Зареєструвати користувача" (register), доступний по адресі “/authentication/register”, дозволяє створити нового користувача у системі. Він приймає дані про нового користувача, такі як ім'я, електронну пошту та пароль, а також необов'язкове зображення користувача.
+Контролер адміністрування бізнесу (див. додаток А, пункт А.2) відповідає за адміністрування різних аспектів корпоративного холодильника. Цей контролер надає доступ до різноманітних статистичних даних та функцій адміністрування.
+Метод "Середня тривалість використання холодильника" (averageUsageDuration) доступний за адресою “/businessAdmin/averageUsageDuration” і приймає ідентифікатор холодильника як параметр запиту. Метод повертає статистичні дані щодо середньої тривалості використання холодильника за певний період часу.
+Метод "Дохід за період" (incomePeriod) доступний за адресою “/businessAdmin/incomePeriod” і дозволяє отримати звіт про дохід за певний період часу. Він приймає ідентифікатор холодильника та дати початку і кінця періоду як параметри запиту та повертає інформацію про дохід за кожен день протягом вказаного періоду.
+Контролер також містить методи для отримання списків користувачів, холодильників, моделей, їжі, транзакцій та замовлень.
+Контролер адміністрування бази даних (див. додаток А, пункт А.3) відповідає за ряд функцій адміністрування бази даних.
+Метод "Відновлення бази даних" (restore) доступний за адресою “/databaseAdmin/restore”. Він приймає масив байтів як тіло запиту, який містить хеш шляху до резервної копії бази.
+Метод "Створення резервної копії бази даних" (backup) доступний за адресою “/databaseAdmin/backup”. Він також приймає масив байтів з хешем шляху до резервної копії як тіло запиту.
+Контролер також містить методи для отримання списків користувачів, холодильників, моделей, їжі, транзакцій та замовлень, а також для додавання та видалення об'єктів.
+Контролер “Device” (див. додаток А, пункт А.5) відповідає за взаємодію з пристроями.
+Метод "Отримати стан холодильника" (getStateOfFridge) доступний за адресою “/device/{fridgeId}/state”. Він приймає ідентифікатор холодильника як параметр у шляху і повертає стан вказаного холодильника.
+Метод "Встановити новий стан холодильника" (setNewStateOfFridge) доступний за адресою “/device/{fridgeId}/setState”. Він встановлює новий стан для вказаного холодильника.
+Метод "Оновити стан холодильника" (updateStateOfFridge) доступний за адресою “/device/{fridgeId}/updateState”. Він оновлює стан вказаного холодильника на основі наданого запиту.
+Контролер також містить методи для початку і зупинки відеопотоку та відправлення електронних листів користувачам.
+Контролер “PaymentController” (див. додаток А, пункт А.4) відповідає за операції оплати через Stripe.
+Метод "Створити платіжний намір" (createPaymentIntent) доступний за адресою “/payment/buy/card”. Він приймає об'єкт StripeRequest у тілі запиту і повертає інформацію про створений платіжний намір.
+Метод "Отримати інформацію про користувача" (getPresentUser) доступний за адресою “/user/account/{email}”. Він приймає адресу електронної пошти користувача та повертає відповідну інформацію про користувача.
+Метод "Отримати фото користувача" (getUserPhoto) доступний за адресою “/user/photo/{userId}”. Цей метод отримує ідентифікатор користувача та повертає фото користувача у форматі байтів.
+Метод "Видалити користувача" (deleteUser) доступний за адресою “/user/account/{userId}/delete”. Він використовується для видалення облікового запису користувача.
+Метод "Зберегти дані користувача" (saveUser) доступний за адресою “/user/account/save”. Він приймає дані користувача та фото у форматі MultipartFile і зберігає їх у системі.
+Контролер також містить методи для отримання списку домашніх тварин користувача, історії оренди, списку готелів та номерів, а також для додавання нових оренд та надсилання повідомлень адміністратору.
+Доступ до ресурсів визначається за наявності JWT-токенів у запитах. Клієнт повинен передавати коректний токен доступу у заголовку запиту для отримання доступу до захищених ресурсів.
+Ця специфікація описує основні ресурси та методи, доступні в програмній системі організації роботи корпоративних холодильників. Вона забезпечує зручний та безпечний спосіб взаємодії з різними компонентами системи через стандартні HTTP-запити та відповіді.
+
+7 ПОБУДОВА ДІАГРАМИ КОМПОНЕНТІВ
+
+Побудова діаграми компонентів дозволяє візуалізувати архітектуру програмної системи, розділяючи її на окремі компоненти та визначаючи їхні зв'язки. В системі організації роботи корпоративних холодильників виділяються такі основні компоненти: серверна частина, база даних, мобільний застосунок, пристрій (IoT), та фронтенд-частина.
+Серверна частина містить кілька логічних компонентів:
+Доступ до даних (data): Використовує JDBC для взаємодії з базою даних.
+Бізнес-логіка (business logic): Використовує інтерфейси репозиторіїв (IRepo) для доступу до даних та зовнішні компоненти, такі як Stripe API та Dropbox API.
+Представлення (presentation): Взаємодіє з бізнес-логікою через інтерфейси сервісів (IService).
+Доступ до даних (data): Використовує інтерфейси репозиторіїв для зберігання та отримання даних.
+Абстракція (domain): Містить логіку для роботи з даними.
+Представлення (presentation): Взаємодіє з бізнес-логікою через інтерфейси сервісів (IMobile).
+Фронтенд-частина складається з кількох логічних компонентів:
+Components: Використовує інтерфейси компонентів (IComponents) для взаємодії між різними частинами фронтенду.
+UI elements: Взаємодіють з компонентами для відображення даних та отримання введення від користувача.
+
+ВИСНОВКИ
+
+Під час виконання лабораторної роботи була розроблена серверна частина для програмної системи організації роботи корпоративних холодильників
+
+Додаток А
+
+А.1 Функція «signIn»
+
+
+1	public JwtAuthenticationResponse signIn(SignInRequest signInRequest) {
+2	authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+3	signInRequest.getEmail(),
+4	signInRequest.getPassword()) 5	);
+6
+7	var user = customUserDetailsService.loadUserByUsername(signInRequest.getEmail());
+8	var webToken = generationToken(user);
+9	var refreshToken = generationRefreshToken(new HashMap<>(), user);
+10
+11	JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+12	jwtAuthenticationResponse.setToken(webToken);
+13	jwtAuthenticationResponse.setRefreshToken(refreshToken);
+14	return jwtAuthenticationResponse; 15	}
+
+
+А.2 Функції «getSpendingElectricity()» та «getSumSpending()»
+
+1	@Override
+2	public List<FridgeSpending> getSpendingElectricity(float price, String nameCompany) {
+3	return fridgeRepository.getSpendingMoneyForEveryFridge(price, nameCompany);
+4 }
+5
+6	@Override
+7	public float getSumSpending(float price, String nameCompany){
+8	return fridgeRepository.getSpendingMoneyAllFridges(price,nameCompany);
+9 }
+ 
+
+А.3 Функція «doBackupDatabase()»
+
+1	@Override
+2	public boolean doBackupDatabase(byte[] backupPathHash) {
+3	byte[] decodedBytes = Base64.getDecoder().decode(backupPathHash);
+4	String backupPathDecoded = new String(decodedBytes, StandardCharsets.UTF_8);
+5	DatabaseManager databaseManager = new DatabaseManager();
+6	return databaseManager.backupSuccessful(backupPathDecoded); 7 }
+
+А.4 Функція «restoreDatabase()»
+
+
+1	@Override
+2	public boolean restoreDatabase(byte[] backupPathHash) {
+3	byte[] decodedBytes = Base64.getDecoder().decode(backupPathHash);
+4	String backupPathDecoded = new String(decodedBytes, StandardCharsets.UTF_8);
+5	DatabaseManager databaseManager = new DatabaseManager();
+6	return databaseManager.restoreSuccessful(backupPathDecoded); 7 }
+
+А.5 Клас «DatabaseManager»
+
+
+1 public class DatabaseManager { 2
+3	/** Uses "mysqldump" command for backup */
+4	public boolean backupSuccessful(String backupPath) {
+5	ProcessBuilder processBuilder = new ProcessBuilder(
+6	"C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysqldump",
+7	"-u", Constants.DATABASE_USERNAME,
+8	"-p" + Constants.DATABASE_PASSWORD,
+9	"--add-drop-table",
+10	"--databases", Constants.DATABASE_URL,
+11	"-r", backupPath 12	);
+13
+14		return createProcessSuccessful(processBuilder); 15	}
+16
+17	/** Uses "mysql" command for restoring */
+18	public boolean restoreSuccessful(String backupPath) {
+19	ProcessBuilder processBuilder = new ProcessBuilder(
+20	"C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysql",
+ 
+
+21		"-u" + Constants.DATABASE_USERNAME,
+22		"-p" + Constants.DATABASE_PASSWORD,
+23		Constants.DATABASE_URL,
+24		"-e", "source " + backupPath
+25	);	
+26		
+27		return createProcessSuccessful(processBuilder); 28	}
+29
+30	private boolean createProcessSuccessful(ProcessBuilder processBuilder) {
+31	try {
+32	Process process = processBuilder.start();
+33	int processComplete = process.waitFor();
+34	return true;
+35	} catch (Exception e) {
+36	return false; 37	}
+38	}
+39 }
+
+А.6 Функція «loadUserByUsername»
+
+1	@Override
+2	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+3	User user = userRepository.findUserByEmail(username).orElse(null);
+4	if (user == null) {
+5	throw new UsernameNotFoundException("User not found with username: " + username);
+6	}
+7
+8	Set<GrantedAuthority> authorities = new HashSet<>();
+9	authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getType().toString()));
+10
+11	return new org.springframework.security.core.userdetails.User(
+12			user.getEmail(),
+13			user.getHashPassword(),
+14			authorities
+15		);	
+16	}		
+
+А.7 Функція «checkUserById()»
+
+1	@Override
+2	public User checkUserById(int fridgeId, int userId) {
+ 
+
+3	List<Access> accesses = accessRepository.findAllAccessForUserById(userId);
+4	User user = userRepository.findById(userId).get(); 5
+6	if (userRepository.findById(userId).isPresent() &&
+!accesses.isEmpty()) {
+7	for	(Access access : accesses) {
+8		if (access.getFridge().getFridgeId() == fridgeId &&
+9		access.getUser().getUserId() == userId) {
+10		return user;
+11		}
+12	}	
+13		}
+14		return null;
+15	}	
+
+А.8 Функція «getAutoOrdersById()»
+
+1	@Override
+2	public List<FridgeOrder> getAutoOrdersById(int fridgeId, String email) {
+3	User user = userRepository.findUserByEmail(email).orElse(null); 4
+5	if (user != null && 6
+!subscriptionRepository.getActualSubscriptionsForUser(user.getUserId()
+).isEmpty()) {
+7	return
+autoOrderRepository.getInfoOrdersForFridgeById(fridgeId);
+8		} else {
+9		return Collections.emptyList();
+10		}
+11	}	
+
+А.9 Функція «doInventoryForFridge()»
+
+1	@Override
+2	public void doInventoryForFridge(Integer fridgeId) {
+3	Fridge fridge = fridgeRepository.findById(fridgeId).get();
+4	List<SpoiledFood> spoiledFoodsInFridge = foodRepository.getSpoiledFoodByFridgeId(fridge.getFridgeId());
+5	sendEmailEveryOwnerFood(spoiledFoodsInFridge); 6 }
+7
+8	private void sendEmailEveryOwnerFood(List<SpoiledFood> spoiledFoodsInFridge) {
+9	User user;
+10	String bodyMessage; 11
+12	try {
+ 
+
+13	for (SpoiledFood spoiledFood : spoiledFoodsInFridge) {
+14	user =
+userRepository.findById(spoiledFood.getUserAccess()).get();
+15	bodyMessage = generateMessageForSpoiledFood(spoiledFood);
+16	emailSender.sendEmail(user.getEmail(), bodyMessage);
+17		}
+18		} catch (Exception e) {
+19		System.out.println(e.getMessage());
+20		}
+21	}	
+
+А.10 Клас «EmailSender»
+
+1 public class EmailSender { 2
+3	private static final String SUBJECT = "Program controlling fridges";
+4
+5	private static final String SMTP_HOST = "smtp.gmail.com"; 6
+7	private static final int SMTP_PORT = 587; 8
+9	private static final String EMAIL_ADDRESS = "ukrainigromadanin284@gmail.com";
+10
+11	private static final String EMAIL_PASSWORD = "mmniqeveixmprktj";
+12
+13	private static final String MAIL_STARTTLS_ENABLE = "true"; 14
+15	private final JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+16
+17	public void sendEmail(String emailTo, String body) throws MessagingException {
+18	connectEmailSender(); 19
+20	MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+21	MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+22
+23	helper.setTo(emailTo);
+24	helper.setSubject(SUBJECT);
+25	helper.setText(body); 26
+27		javaMailSender.send(mimeMessage); 28	}
+29
+30	private void connectEmailSender() {
+ 
+
+31	javaMailSender.setHost(SMTP_HOST);
+32	javaMailSender.setPort(SMTP_PORT);
+33	javaMailSender.setUsername(EMAIL_ADDRESS);
+34	javaMailSender.setPassword(EMAIL_PASSWORD);
+35	Properties props = javaMailSender.getJavaMailProperties();
+36	props.put("mail.smtp.starttls.enable", MAIL_STARTTLS_ENABLE);
+37	}
+38 }
+
+А.11 Метод «doAutoOrdering()»
+
+1	@Override
+2	public void doAutoOrdering(int fridgeId) {
+3	List<AutoOrder> autoOrdering = autoOrderRepository.findAll();
+4	Delivety delivety = new Delivety();
+5	boolean isTimeToOrder; 6
+7	for (AutoOrder autoOrder : autoOrdering) {
+8	isTimeToOrder = autoOrder.getAccess().getFridge().getFridgeId() == fridgeId &&
+9
+autoOrder.getDateDelivery().isBefore(LocalDateTime.now()) || 10
+autoOrder.getDateDelivery().isEqual(LocalDateTime.now()); 11
+12	if (isTimeToOrder) {
+13	AutoOrderRequest newRequest = new AutoOrderRequest(autoOrder);
+14	delivety.sendAutoOrdering(newRequest); 15 autoOrderRepository.deleteById(autoOrder.getOrderId()); 16	}
+17	}
+18 }
+
+А.12 Клас «Delivety»
+
+1 public class Delivety { 2
+3	private final static String DELIVETY_API_URL = "https://smart2.delivety.com/hooks/catch/bx3sl8kl43";
+4
+5	private final static String ACCESS_TOKEN = "yUk2EzNE3MLzYuyTnEK3N4zc";
+6
+7	public void sendAutoOrdering(AutoOrderRequest autoOrderRequest) {
+8	autoOrderRequest.access_token = ACCESS_TOKEN;
+ 
+
+9	HttpHeaders headers = new HttpHeaders();
+10	headers.setContentType(MediaType.APPLICATION_JSON); 11
+12	HttpEntity<AutoOrderRequest> request = new HttpEntity<>(autoOrderRequest, headers);
+13
+14	RestTemplate restTemplate = new RestTemplate();
+15	restTemplate.postForObject(DELIVETY_API_URL, request, String.class);
+16	}
+17 }
+
+А.13 Функція «createPaymentIntent()»
+
+1	@Override
+2	public StripeResponse createPaymentIntent(StripeRequest request)
+3		throws StripeException {
+4		
+5		Customer customer = new Customer();
+6		customer.setEmail(request.getEmail());
+7		
+8		PaymentIntentCreateParams params =
+9		PaymentIntentCreateParams.builder()
+10		.setAmount(request.getAmount() * PRICE)
+11		.setCurrency("usd")
+12		.setCustomer(customer.getId())
+13		.setAutomaticPaymentMethods(
+14		PaymentIntentCreateParams
+15		.AutomaticPaymentMethods
+16		.builder()
+17		.setEnabled(true)
+18		.build()
+19		)
+20		.build();
+21		PaymentIntent intent =
+22		PaymentIntent.create(params);
+23		
+24		return new StripeResponse(intent.getId(),
+25		intent.getClientSecret());
+26	}	
+
+А.14 Функції «getFridgesByUserEmail()» та «getAllFoodUserByEmail()»
+
+1	@Override
+2	@Transactional
+3	public List<Fridge> getFridgesByUserEmail(String email) {
+4	User user = userRepository.findUserByEmail(email).orElse(new User());
+5	return fridgeRepository.getFridgesByUserId(user.getUserId()).get();
+ 
+
+6 }
+7
+8	@Override
+9	public List<UserFood> getAllFoodUserByEmail(String email) {
+10	User user = userRepository.findUserByEmail(email).orElse(new User());
+11	return foodRepository.getAllFoodUserById(user.getUserId()); 12 }
+
+А.15 Функції «getAllOrdersForUserByEmail()»
+
+1	@Override
+2	public List<UserOrder> getAllOrdersForUserByEmail(String email) {
+3	User user = userRepository.findUserByEmail(email).orElse(new User());
+4	List<Subscription> presentSubscription = subscriptionRepository.getActualSubscriptionsForUser(user.getUserId())
+;
+5	if (!presentSubscription.isEmpty()) {
+6	return
+autoOrderRepository.getAllOrdersForUserById(user.getUserId());
+7		} else {
+8		return null;
+9		}
+10	}	
+
+А.16 Функції «getUserPhoto()» та «saveUser()»
+
+1	public byte[] getUserPhoto(String email) {
+2	String photoPath = userRepository.findUserByEmail(email).orElse(new User()).getPhoto();
+3	return PhotoParser.pullPhoto(photoPath); 4 }
+5
+6	@Override
+7	public void saveUser(User user, MultipartFile file) {
+8	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+9
+user.setHashPassword(passwordEncoder.encode(user.getHashPassword())); 10
+11	PhotoParser photoParser = new PhotoParser(file);
+12	photoParser.savePhoto(); 13
+14	user.setPhoto(photoParser.getAbsolutePath());
+15	userRepository.save(user); 16 }
+ 
+
+А.17 Функції «getUserPhoto()» та «saveUser()»
+
+1 public class PhotoParser { 2
+3	private static final String UPLOAD_PATH = "/fridges/img"; 4
+5	private final MultipartFile file; 6
+7	private String absolutePath; 8
+9	public PhotoParser(MultipartFile multipartFile) {
+10		this.file = multipartFile; 11	}
+12
+13	public void savePhoto() {
+14	if (file == null || file.isEmpty() || file.getOriginalFilename() == null) return;
+15	try {
+16	String folderPath = System.getProperty(UPLOAD_PATH);
+17	File destination = new File(folderPath, Objects.requireNonNull(file.getOriginalFilename()));
+18	FileCopyUtils.copy(file.getBytes(), destination);
+19	absolutePath = destination.getAbsolutePath();
+20		} catch (IOException e) {
+21		e.printStackTrace();
+22		}
+23	}	
+24		
+25		public String getAbsolutePath() {
+26		if (absolutePath != null) {
+27		return absolutePath;
+28		}
+29		return "";
+30		}
+31		
+32		public static byte[] pullPhoto(String photoPath){
+33		if (photoPath != null) {
+34		try {
+35		Path path = Paths.get(photoPath);
+36		return Files.readAllBytes(path);
+37		} catch (IOException e) {
+38		e.printStackTrace();
+39		}
+40		}
+41		return null;
+42		}
+43	}	
+ 
+
+А.18 Функція «hasActualSubscription»
+
+1	@Override
+2	public boolean hasActualSubscription(String email) {
+3	User user = userRepository.findUserByEmail(email).orElse(new User());
+4	return
+!subscriptionRepository.getActualSubscriptionsForUser(user.getUserId()
+).isEmpty(); 5 }
